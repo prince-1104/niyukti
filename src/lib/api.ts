@@ -1,3 +1,4 @@
+/// <reference types="../vite-env" />
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import type {
   User,
