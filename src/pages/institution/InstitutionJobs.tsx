@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../lib/api';
-import { Plus, Briefcase, Edit, Eye, CheckSquare, Square, Rocket, AlertCircle } from 'lucide-react';
+import { Plus, Briefcase, Eye, CheckSquare, Square, Rocket } from 'lucide-react';
 import type { Job } from '../../types';
 
 export default function InstitutionJobs() {

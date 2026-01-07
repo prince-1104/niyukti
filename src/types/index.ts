@@ -152,6 +152,10 @@ export interface JobCreate {
   passing_score_threshold?: number;
 }
 
+export interface JobUpdate extends Partial<JobCreate> {
+  status?: JobStatus;
+}
+
 // Screening Types
 export type QuestionType = 'mcq' | 'descriptive';
 export type ScreeningStatus = 'pending' | 'in_progress' | 'completed' | 'passed' | 'failed';

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../../lib/api';
-import { Sparkles, Edit, Users, AlertCircle, TrendingUp, MapPin, BookOpen, Briefcase, Rocket } from 'lucide-react';
+import { Sparkles, Users, AlertCircle, TrendingUp, MapPin, BookOpen, Briefcase, Rocket } from 'lucide-react';
 import type { Job } from '../../types';
 
 export default function JobDetailsPage() {

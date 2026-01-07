@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { api } from '../../lib/api';
-import { CheckCircle, XCircle, Clock } from 'lucide-react';
-import type { ScreeningAttempt, Question, AnswerSubmit } from '../../types';
+import { CheckCircle } from 'lucide-react';
+import type { ScreeningAttempt, Question } from '../../types';
 
 export default function ScreeningPage() {
   const { attemptId } = useParams<{ attemptId: string }>();
-  const navigate = useNavigate();
   const [attempt, setAttempt] = useState<ScreeningAttempt | null>(null);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [submitting, setSubmitting] = useState(false);

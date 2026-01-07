@@ -13,6 +13,7 @@ import type {
   InstitutionProfileCreate,
   Job,
   JobCreate,
+  JobUpdate,
   ScreeningAttempt,
   ScreeningStartRequest,
   AnswerSubmit,
@@ -159,13 +160,13 @@ class ApiClient {
     return response.data;
   }
 
-  async updateJob(jobId: number, data: Partial<JobCreate>): Promise<Job> {
+  async updateJob(jobId: number, data: JobUpdate): Promise<Job> {
     const response = await this.client.patch<Job>(`/institution/jobs/${jobId}`, data);
     return response.data;
   }
 
   async activateJob(jobId: number): Promise<Job> {
-    return this.updateJob(jobId, { status: 'active' as any });
+    return this.updateJob(jobId, { status: 'active' });
   }
 
   async bulkActivateJobs(jobIds: number[]): Promise<{ message: string; activated_count: number; total_requested: number }> {
