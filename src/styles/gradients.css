@@ -1,0 +1,60 @@
+.gradient-slate-horizon {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+}
+
+.gradient-slate-horizon-dark {
+  background: linear-gradient(135deg, #1a1d24 0%, #252932 50%, #2d3239 100%);
+}
+
+.gradient-warm-neutral {
+  background: linear-gradient(135deg, #faf9f7 0%, #f5f3f0 50%, #edeae5 100%);
+}
+
+.gradient-warm-neutral-dark {
+  background: linear-gradient(135deg, #1f1e1c 0%, #2a2825 50%, #34322e 100%);
+}
+
+.gradient-cool-mist {
+  background: linear-gradient(135deg, #f7f8fa 0%, #f0f2f5 50%, #e8ebef 100%);
+}
+
+.gradient-cool-mist-dark {
+  background: linear-gradient(135deg, #1a1d24 0%, #22252d 50%, #2a2e36 100%);
+}
+
+.gradient-radial-focus {
+  background: radial-gradient(ellipse at top left, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+}
+
+.gradient-radial-focus-dark {
+  background: radial-gradient(ellipse at top left, #1a1d24 0%, #252932 50%, #2d3239 100%);
+}
+
+body.gradient-bg-1 {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+  min-height: 100vh;
+}
+
+body.gradient-bg-2 {
+  background: linear-gradient(135deg, #faf9f7 0%, #f5f3f0 50%, #edeae5 100%);
+  min-height: 100vh;
+}
+
+body.gradient-bg-3 {
+  background: linear-gradient(135deg, #f7f8fa 0%, #f0f2f5 50%, #e8ebef 100%);
+  min-height: 100vh;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.gradient-bg-1 {
+    background: linear-gradient(135deg, #1a1d24 0%, #252932 50%, #2d3239 100%);
+  }
+  
+  body.gradient-bg-2 {
+    background: linear-gradient(135deg, #1f1e1c 0%, #2a2825 50%, #34322e 100%);
+  }
+  
+  body.gradient-bg-3 {
+    background: linear-gradient(135deg, #1a1d24 0%, #22252d 50%, #2a2e36 100%);
+  }
+}
