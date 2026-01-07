@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference path="../vite-env.d.ts" />
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import type {
   User,
@@ -22,7 +23,7 @@ import type {
   Subscription,
 } from '../types';
 
-const API_BASE_URL = (import.meta.env as { VITE_API_BASE_URL?: string }).VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
 
 class ApiClient {
   private client: AxiosInstance;
@@ -167,7 +168,8 @@ class ApiClient {
   }
 
   async activateJob(jobId: number): Promise<Job> {
-    return this.updateJob(jobId, { status: 'active' } as JobUpdate);
+    const updateData: JobUpdate = { status: 'active' };
+    return this.updateJob(jobId, updateData);
   }
 
   async bulkActivateJobs(jobIds: number[]): Promise<{ message: string; activated_count: number; total_requested: number }> {
