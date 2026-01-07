@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { CheckCircle } from 'lucide-react';
-import type { ScreeningAttempt, Question } from '../../types';
+import type { ScreeningAttempt } from '../../types';
 
 export default function ScreeningPage() {
   const { attemptId } = useParams<{ attemptId: string }>();

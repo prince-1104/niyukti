@@ -167,7 +167,7 @@ class ApiClient {
   }
 
   async activateJob(jobId: number): Promise<Job> {
-    return this.updateJob(jobId, { status: 'active' });
+    return this.updateJob(jobId, { status: 'active' } as JobUpdate);
   }
 
   async bulkActivateJobs(jobIds: number[]): Promise<{ message: string; activated_count: number; total_requested: number }> {
