@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { Briefcase, Upload, UserCircle, TrendingUp } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import type { CandidateProfile, JobMatchCount } from '../../types';
 
 export default function CandidateDashboard() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const [profile, setProfile] = useState<CandidateProfile | null>(null);
   const [jobCount, setJobCount] = useState<JobMatchCount | null>(null);
   const [loading, setLoading] = useState(true);
@@ -83,11 +85,11 @@ export default function CandidateDashboard() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-dashboard-card rounded-xl shadow-xl p-6 border border-dashboard-green/20">
+        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Profile Status</p>
-              <p className="text-2xl font-bold mt-1 text-white">
+              <p className={`text-sm ${theme === 'light' ? 'text-black' : 'text-gray-400'}`}>Profile Status</p>
+              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-black' : 'text-white'}`}>
                 {isProfileComplete ? 'Complete' : 'Incomplete'}
               </p>
             </div>
@@ -101,15 +103,15 @@ export default function CandidateDashboard() {
           </Link>
         </div>
 
-        <div className="bg-dashboard-card rounded-xl shadow-xl p-6 border border-dashboard-green/20">
+        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Job Matches</p>
-              <p className="text-2xl font-bold mt-1 text-white">
+              <p className={`text-sm ${theme === 'light' ? 'text-black' : 'text-gray-400'}`}>Job Matches</p>
+              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-black' : 'text-white'}`}>
                 {jobCount?.count ?? '--'}
               </p>
               {jobCount && (
-                <p className="text-xs text-gray-400 mt-1">{jobCount.message}</p>
+                <p className={`text-xs ${theme === 'light' ? 'text-black' : 'text-gray-400'} mt-1`}>{jobCount.message}</p>
               )}
             </div>
             <TrendingUp className="w-12 h-12 text-dashboard-green" />
@@ -122,11 +124,11 @@ export default function CandidateDashboard() {
           </Link>
         </div>
 
-        <div className="bg-dashboard-card rounded-xl shadow-xl p-6 border border-dashboard-green/20">
+        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Resume</p>
-              <p className="text-2xl font-bold mt-1 text-white">
+              <p className={`text-sm ${theme === 'light' ? 'text-indigo-100' : 'text-gray-400'}`}>Resume</p>
+              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-white' : 'text-white'}`}>
                 {profile?.is_profile_complete ? 'Uploaded' : 'Not Uploaded'}
               </p>
             </div>
@@ -142,8 +144,8 @@ export default function CandidateDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-dashboard-card rounded-xl shadow-xl p-6 border border-dashboard-green/20">
-          <h2 className="text-xl font-semibold mb-4 text-white">Application Trends</h2>
+        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
+          <h2 className={`text-xl font-semibold mb-4 ${theme === 'light' ? 'text-black' : 'text-white'}`}>Application Trends</h2>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -160,10 +162,10 @@ export default function CandidateDashboard() {
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-dashboard-card rounded-xl shadow-xl p-6 border border-dashboard-green/20">
+        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
           <div className="mb-4">
-            <h2 className="text-xl font-semibold text-white">Subject Preferences</h2>
-            <p className="text-sm text-gray-400 mt-1">Available job opportunities by subject</p>
+            <h2 className={`text-xl font-semibold ${theme === 'light' ? 'text-black' : 'text-white'}`}>Subject Preferences</h2>
+            <p className={`text-sm ${theme === 'light' ? 'text-black' : 'text-gray-400'} mt-1`}>Available job opportunities by subject</p>
           </div>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={subjectData}>
@@ -188,8 +190,8 @@ export default function CandidateDashboard() {
         </div>
       </div>
 
-      <div className="bg-dashboard-card rounded-xl shadow-xl p-6 border border-dashboard-green/20">
-        <h2 className="text-xl font-semibold mb-4 text-white">Quick Actions</h2>
+      <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
+        <h2 className={`text-xl font-semibold mb-4 ${theme === 'light' ? 'text-black' : 'text-white'}`}>Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link
             to="/candidate/jobs"
@@ -197,8 +199,8 @@ export default function CandidateDashboard() {
           >
             <Briefcase className="w-6 h-6 text-dashboard-green mr-3" />
             <div>
-              <div className="font-medium text-white">Find Jobs</div>
-              <div className="text-sm text-gray-400">Browse matching opportunities</div>
+              <div className={`font-medium ${theme === 'light' ? 'text-black' : 'text-white'}`}>Find Jobs</div>
+              <div className={`text-sm ${theme === 'light' ? 'text-gray-700' : 'text-gray-400'}`}>Browse matching opportunities</div>
             </div>
           </Link>
           <Link
@@ -207,8 +209,8 @@ export default function CandidateDashboard() {
           >
             <UserCircle className="w-6 h-6 text-dashboard-green mr-3" />
             <div>
-              <div className="font-medium text-white">Update Profile</div>
-              <div className="text-sm text-gray-400">Manage your preferences</div>
+              <div className={`font-medium ${theme === 'light' ? 'text-black' : 'text-white'}`}>Update Profile</div>
+              <div className={`text-sm ${theme === 'light' ? 'text-gray-700' : 'text-gray-400'}`}>Manage your preferences</div>
             </div>
           </Link>
         </div>

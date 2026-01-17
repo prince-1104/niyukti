@@ -8,8 +8,10 @@ const routerConfig = {
   },
 };
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import LandingPage from './pages/LandingPage';
 import CandidateDashboard from './pages/candidate/CandidateDashboard';
 import CandidateProfile from './pages/candidate/CandidateProfile';
 import CandidateJobs from './pages/candidate/CandidateJobs';
@@ -27,14 +29,14 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-dashboard-dark">
+        <div className="text-lg text-gray-900 dark:text-gray-100">Loading...</div>
       </div>
     );
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
@@ -50,6 +52,35 @@ function RoleRoute({ allowedRoles, children }: { allowedRoles: string[]; childre
   return <>{children}</>;
 }
 
+function IndexRedirect() {
+  const { user } = useAuth();
+  return (
+    <Navigate to={user?.role === 'candidate' ? '/candidate/dashboard' : '/institution/dashboard'} replace />
+  );
+}
+
+function RootRoute() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-dashboard-dark">
+        <div className="text-lg text-gray-900 dark:text-gray-100">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LandingPage />;
+  }
+
+  return (
+    <ProtectedRoute>
+      <Layout />
+    </ProtectedRoute>
+  );
+}
+
 function AppRoutes() {
   const { user } = useAuth();
 
@@ -58,24 +89,9 @@ function AppRoutes() {
       <Route path="/login" element={user ? <Navigate to="/" replace /> : <LoginPage />} />
       <Route path="/signup" element={user ? <Navigate to="/" replace /> : <SignupPage />} />
       
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <Layout />
-          </ProtectedRoute>
-        }
-      >
-        <Route
-          index
-          element={
-            user?.role === 'candidate' ? (
-              <Navigate to="/candidate/dashboard" replace />
-            ) : (
-              <Navigate to="/institution/dashboard" replace />
-            )
-          }
-        />
+      {/* Landing page for unauthenticated users, protected routes for authenticated */}
+      <Route path="/" element={<RootRoute />}>
+        <Route index element={<IndexRedirect />} />
         
         {/* Candidate Routes */}
         <Route
@@ -167,11 +183,13 @@ function AppRoutes() {
 
 function App() {
   return (
-    <Router future={routerConfig.future}>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </Router>
+    <ThemeProvider>
+      <Router future={routerConfig.future}>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </Router>
+    </ThemeProvider>
   );
 }
 

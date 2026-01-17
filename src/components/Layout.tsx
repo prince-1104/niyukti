@@ -1,9 +1,11 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { LogOut, Briefcase, Building2, UserCircle, BarChart3 } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
+import { LogOut, Briefcase, Building2, UserCircle, BarChart3, Moon, Sun } from 'lucide-react';
 
 export default function Layout() {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,8 +17,15 @@ export default function Layout() {
   const isInstitution = user?.role === 'institution';
 
   return (
-    <div className="min-h-screen bg-dashboard-dark">
-      <nav className="bg-dashboard-card/95 backdrop-blur-lg shadow-lg border-b border-dashboard-green/20 sticky top-0 z-50">
+    <div 
+      className="min-h-screen dark:bg-dashboard-dark"
+      style={{
+        background: theme === 'light' 
+          ? 'linear-gradient(to bottom, #7e22ce 0%, #a855f7 25%, #60a5fa 50%, #cbd5e1 75%, #ffffff 100%)'
+          : undefined
+      }}
+    >
+      <nav className="bg-purple-800 dark:bg-dashboard-card/95 backdrop-blur-lg shadow-lg border-b border-purple-900/50 dark:border-dashboard-green/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
@@ -31,20 +40,20 @@ export default function Layout() {
                   <>
                     <Link
                       to="/candidate/dashboard"
-                      className="text-gray-300 hover:text-dashboard-green hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-200"
+                      className="text-white dark:text-gray-300 hover:text-white dark:hover:text-dashboard-green hover:bg-purple-700/50 dark:hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-200"
                     >
                       <Briefcase className="w-4 h-4" />
                       Dashboard
                     </Link>
                     <Link
                       to="/candidate/jobs"
-                      className="text-gray-300 hover:text-dashboard-green hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                      className="text-white dark:text-gray-300 hover:text-white dark:hover:text-dashboard-green hover:bg-purple-700/50 dark:hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
                     >
                       Find Jobs
                     </Link>
                     <Link
                       to="/candidate/profile"
-                      className="text-gray-300 hover:text-dashboard-green hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                      className="text-white dark:text-gray-300 hover:text-white dark:hover:text-dashboard-green hover:bg-purple-700/50 dark:hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
                     >
                       Profile
                     </Link>
@@ -55,26 +64,26 @@ export default function Layout() {
                   <>
                     <Link
                       to="/institution/dashboard"
-                      className="text-gray-300 hover:text-dashboard-green hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-200"
+                      className="text-white dark:text-gray-300 hover:text-white dark:hover:text-dashboard-green hover:bg-purple-700/50 dark:hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-200"
                     >
                       <Building2 className="w-4 h-4" />
                       Dashboard
                     </Link>
                     <Link
                       to="/institution/jobs"
-                      className="text-gray-300 hover:text-dashboard-green hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                      className="text-white dark:text-gray-300 hover:text-white dark:hover:text-dashboard-green hover:bg-purple-700/50 dark:hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
                     >
                       Jobs
                     </Link>
                     <Link
                       to="/institution/profile"
-                      className="text-gray-300 hover:text-dashboard-green hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                      className="text-white dark:text-gray-300 hover:text-white dark:hover:text-dashboard-green hover:bg-purple-700/50 dark:hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
                     >
                       Profile
                     </Link>
                     <Link
                       to="/institution/analytics"
-                      className="text-gray-300 hover:text-dashboard-green hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-200"
+                      className="text-white dark:text-gray-300 hover:text-white dark:hover:text-dashboard-green hover:bg-purple-700/50 dark:hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-200"
                     >
                       <BarChart3 className="w-4 h-4" />
                       Analytics
@@ -85,13 +94,24 @@ export default function Layout() {
             </div>
             
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-sm text-gray-200 bg-dashboard-card px-4 py-2 rounded-lg border border-dashboard-green/20">
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg text-white dark:text-gray-300 hover:bg-purple-700/50 dark:hover:bg-dashboard-card border border-purple-700/50 dark:border-dashboard-green/20 transition-all duration-200 flex items-center justify-center"
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? (
+                  <Moon className="w-5 h-5" />
+                ) : (
+                  <Sun className="w-5 h-5" />
+                )}
+              </button>
+              <div className="flex items-center space-x-2 text-sm text-white dark:text-gray-200 bg-purple-700/30 dark:bg-dashboard-card px-4 py-2 rounded-lg border border-purple-600/50 dark:border-dashboard-green/20">
                 <UserCircle className="w-5 h-5 text-dashboard-green" />
                 <span className="font-medium">{user?.full_name || user?.email}</span>
               </div>
               <button
                 onClick={handleLogout}
-                className="text-gray-300 hover:text-dashboard-orange hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-200 border border-dashboard-orange/20"
+                className="text-white dark:text-gray-300 hover:text-white dark:hover:text-dashboard-orange hover:bg-purple-700/50 dark:hover:bg-dashboard-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-200 border border-purple-700/50 dark:border-dashboard-orange/20"
               >
                 <LogOut className="w-4 h-4" />
                 Logout

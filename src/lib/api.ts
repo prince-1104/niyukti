@@ -21,6 +21,9 @@ import type {
   AnswerSubmit,
   ScreeningResult,
   Subscription,
+  GenerateQuestionsRequest,
+  GenerateQuestionsResponse,
+  Question,
 } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
@@ -192,8 +195,16 @@ class ApiClient {
     return response.data;
   }
 
-  async generateQuestions(jobId: number): Promise<{ message: string; question_ids: number[]; job_id: number }> {
-    const response = await this.client.post(`/institution/jobs/${jobId}/generate-questions`);
+  async generateQuestions(jobId: number, request?: GenerateQuestionsRequest): Promise<GenerateQuestionsResponse> {
+    const response = await this.client.post<GenerateQuestionsResponse>(
+      `/institution/jobs/${jobId}/generate-questions`,
+      request || {}
+    );
+    return response.data;
+  }
+
+  async getJobQuestions(jobId: number): Promise<Question[]> {
+    const response = await this.client.get<Question[]>(`/institution/jobs/${jobId}/questions`);
     return response.data;
   }
 

@@ -114,6 +114,7 @@ export interface InstitutionProfileCreate {
 
 // Job Types
 export type JobStatus = 'draft' | 'active' | 'closed';
+export type DifficultyLevel = 'easy' | 'medium' | 'hard';
 
 export interface Job {
   id: number;
@@ -156,16 +157,41 @@ export interface JobUpdate extends Partial<JobCreate> {
   status?: JobStatus;
 }
 
+export interface GenerateQuestionsRequest {
+  class_level?: number; // 1-10
+  subject?: Subject; // Override job's subject
+  easy_count?: number; // Number of easy difficulty questions
+  medium_count?: number; // Number of medium difficulty questions
+  hard_count?: number; // Number of hard difficulty questions
+  question_count?: number; // Total question count (used if difficulty counts not specified)
+  mcq_count?: number; // Specific MCQ count
+  descriptive_count?: number; // Specific descriptive count
+  mcq_ratio?: number; // Ratio of MCQ questions (0.0-1.0), default: 0.7
+}
+
+export interface GenerateQuestionsResponse {
+  message: string;
+  question_ids: number[];
+  job_id: number;
+  total_questions: number;
+}
+
 // Screening Types
 export type QuestionType = 'mcq' | 'descriptive';
 export type ScreeningStatus = 'pending' | 'in_progress' | 'completed' | 'passed' | 'failed';
 
 export interface Question {
   id: number;
+  class_level: number;
+  subject: Subject;
   question_type: QuestionType;
   question_text: string;
   options: string[] | null;
+  correct_answer: string;
+  expected_keywords: string[] | null;
+  expected_answer_text: string | null;
   points: number;
+  created_at: string;
 }
 
 export interface ScreeningAttempt {
