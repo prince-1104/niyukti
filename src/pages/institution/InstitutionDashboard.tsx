@@ -64,8 +64,8 @@ export default function InstitutionDashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">Welcome, {profile?.name || user?.full_name}!</h1>
-          <p className="text-gray-400">Manage your institution and job postings</p>
+          <h1 className={`text-4xl font-bold mb-2 ${theme === 'light' ? 'text-blue-900' : 'text-white'}`}>Welcome, {profile?.name || user?.full_name}!</h1>
+          <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>Manage your institution and job postings</p>
         </div>
         <Link to="/institution/jobs/create" className="bg-gradient-to-r from-dashboard-green to-dashboard-blue text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-semibold flex items-center gap-2">
           <Plus className="w-5 h-5" />
@@ -85,21 +85,21 @@ export default function InstitutionDashboard() {
       )}
 
       {subscription && (
-        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border-2 ${
+        <div className={`${theme === 'light' ? 'bg-cyan-50' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border-2 ${
           subscription.tier === 'paid' 
             ? theme === 'light' 
-              ? 'border-indigo-700 bg-indigo-700/30' 
+              ? 'border-cyan-200' 
               : 'border-dashboard-green bg-dashboard-green/10' 
             : theme === 'light'
-              ? 'border-indigo-700'
+              ? 'border-cyan-200'
               : 'border-dashboard-green/30'
         }`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className={`text-sm ${theme === 'light' ? 'text-black' : 'text-gray-400'}`}>Subscription</p>
-              <p className={`text-2xl font-bold capitalize ${theme === 'light' ? 'text-black' : 'text-white'}`}>{subscription.tier} Plan</p>
+              <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Subscription</p>
+              <p className={`text-2xl font-bold capitalize ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{subscription.tier} Plan</p>
               {subscription.tier === 'free' && (
-                <p className={`text-sm ${theme === 'light' ? 'text-black' : 'text-gray-400'} mt-1`}>
+                <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'} mt-1`}>
                   Upgrade to view candidate scores and details
                 </p>
               )}
@@ -114,49 +114,49 @@ export default function InstitutionDashboard() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-gray-200' : 'border-dashboard-green/20'}`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className={`text-sm ${theme === 'light' ? 'text-indigo-100' : 'text-gray-400'}`}>Active Jobs</p>
-              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-white' : 'text-white'}`}>{activeJobs}</p>
+              <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Active Jobs</p>
+              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-blue-900' : 'text-white'}`}>{activeJobs}</p>
             </div>
             <Briefcase className="w-12 h-12 text-dashboard-green" />
           </div>
           <Link
             to="/institution/jobs"
-            className="text-dashboard-green hover:text-dashboard-green/80 text-sm font-medium mt-4 inline-block"
+            className={`text-sm font-medium mt-4 inline-block ${theme === 'light' ? 'text-blue-600 hover:text-blue-700' : 'text-dashboard-green hover:text-dashboard-green/80'}`}
           >
             View All Jobs →
           </Link>
         </div>
 
-        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-gray-200' : 'border-dashboard-green/20'}`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className={`text-sm ${theme === 'light' ? 'text-black' : 'text-gray-400'}`}>Draft Jobs</p>
-              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-black' : 'text-white'}`}>{draftJobs}</p>
+              <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Draft Jobs</p>
+              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-blue-900' : 'text-white'}`}>{draftJobs}</p>
             </div>
             <Building2 className="w-12 h-12 text-dashboard-orange" />
           </div>
           <Link
             to="/institution/jobs"
-            className="text-dashboard-green hover:text-dashboard-green/80 text-sm font-medium mt-4 inline-block"
+            className={`text-sm font-medium mt-4 inline-block ${theme === 'light' ? 'text-blue-600 hover:text-blue-700' : 'text-dashboard-green hover:text-dashboard-green/80'}`}
           >
             View Drafts →
           </Link>
         </div>
 
-        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-gray-200' : 'border-dashboard-green/20'}`}>
           <div className="flex items-center justify-between">
             <div>
-              <p className={`text-sm ${theme === 'light' ? 'text-black' : 'text-gray-400'}`}>Total Jobs</p>
-              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-black' : 'text-white'}`}>{jobs.length}</p>
+              <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Jobs</p>
+              <p className={`text-2xl font-bold mt-1 ${theme === 'light' ? 'text-blue-900' : 'text-white'}`}>{jobs.length}</p>
             </div>
             <TrendingUp className="w-12 h-12 text-dashboard-blue" />
           </div>
           <Link
             to="/institution/jobs"
-            className="text-dashboard-green hover:text-dashboard-green/80 text-sm font-medium mt-4 inline-block"
+            className={`text-sm font-medium mt-4 inline-block ${theme === 'light' ? 'text-blue-600 hover:text-blue-700' : 'text-dashboard-green hover:text-dashboard-green/80'}`}
           >
             Manage Jobs →
           </Link>
@@ -164,16 +164,20 @@ export default function InstitutionDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
-          <h2 className={`text-xl font-semibold mb-4 ${theme === 'light' ? 'text-black' : 'text-white'}`}>Job Statistics</h2>
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-gray-200' : 'border-dashboard-green/20'}`}>
+          <h2 className={`text-xl font-semibold mb-4 ${theme === 'light' ? 'text-gray-700' : 'text-white'}`}>Job Statistics</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={jobStatsData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="month" stroke="#9ca3af" />
-              <YAxis stroke="#9ca3af" />
+              <CartesianGrid strokeDasharray="3 3" stroke={theme === 'light' ? '#e5e7eb' : '#374151'} />
+              <XAxis dataKey="month" stroke={theme === 'light' ? '#6b7280' : '#9ca3af'} />
+              <YAxis stroke={theme === 'light' ? '#6b7280' : '#9ca3af'} />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
-                labelStyle={{ color: '#fff' }}
+                contentStyle={{ 
+                  backgroundColor: theme === 'light' ? '#ffffff' : '#1f2937', 
+                  border: theme === 'light' ? '1px solid #e5e7eb' : '1px solid #374151', 
+                  borderRadius: '8px' 
+                }}
+                labelStyle={{ color: theme === 'light' ? '#1f2937' : '#fff' }}
               />
               <Legend />
               <Bar dataKey="active" fill="#00ff88" radius={[8, 8, 0, 0]} />
@@ -182,16 +186,20 @@ export default function InstitutionDashboard() {
           </ResponsiveContainer>
         </div>
 
-        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
-          <h2 className={`text-xl font-semibold mb-4 ${theme === 'light' ? 'text-black' : 'text-white'}`}>Candidates by Subject</h2>
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-gray-200' : 'border-dashboard-green/20'}`}>
+          <h2 className={`text-xl font-semibold mb-4 ${theme === 'light' ? 'text-gray-700' : 'text-white'}`}>Candidates by Subject</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={candidateData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="subject" stroke="#9ca3af" />
-              <YAxis stroke="#9ca3af" />
+              <CartesianGrid strokeDasharray="3 3" stroke={theme === 'light' ? '#e5e7eb' : '#374151'} />
+              <XAxis dataKey="subject" stroke={theme === 'light' ? '#6b7280' : '#9ca3af'} />
+              <YAxis stroke={theme === 'light' ? '#6b7280' : '#9ca3af'} />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px' }}
-                labelStyle={{ color: '#fff' }}
+                contentStyle={{ 
+                  backgroundColor: theme === 'light' ? '#ffffff' : '#1f2937', 
+                  border: theme === 'light' ? '1px solid #e5e7eb' : '1px solid #374151', 
+                  borderRadius: '8px' 
+                }}
+                labelStyle={{ color: theme === 'light' ? '#1f2937' : '#fff' }}
               />
               <Bar dataKey="candidates" fill="#3b82f6" radius={[8, 8, 0, 0]} />
             </BarChart>
@@ -200,10 +208,10 @@ export default function InstitutionDashboard() {
       </div>
 
       {jobs.length > 0 && (
-        <div className={`${theme === 'light' ? 'bg-indigo-600' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-indigo-700' : 'border-dashboard-green/20'}`}>
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-dashboard-card'} rounded-xl shadow-xl p-6 border ${theme === 'light' ? 'border-gray-200' : 'border-dashboard-green/20'}`}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className={`text-xl font-semibold ${theme === 'light' ? 'text-black' : 'text-white'}`}>Recent Jobs</h2>
-            <Link to="/institution/jobs" className="text-dashboard-green hover:text-dashboard-green/80 text-sm">
+            <h2 className={`text-xl font-semibold ${theme === 'light' ? 'text-gray-700' : 'text-white'}`}>Recent Jobs</h2>
+            <Link to="/institution/jobs" className={`text-sm ${theme === 'light' ? 'text-blue-600 hover:text-blue-700' : 'text-dashboard-green hover:text-dashboard-green/80'}`}>
               View All →
             </Link>
           </div>
@@ -215,8 +223,8 @@ export default function InstitutionDashboard() {
                 className="flex items-center justify-between p-3 border border-dashboard-green/30 rounded-lg hover:border-dashboard-green hover:bg-dashboard-card transition-colors"
               >
                 <div>
-                  <h3 className={`font-medium ${theme === 'light' ? 'text-black' : 'text-white'}`}>{job.title}</h3>
-                  <p className={`text-sm ${theme === 'light' ? 'text-gray-700' : 'text-gray-400'}`}>
+                  <h3 className={`font-medium ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{job.title}</h3>
+                  <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                     {job.city}, {job.state} • {job.subject.replace('_', ' ')}
                   </p>
                 </div>
